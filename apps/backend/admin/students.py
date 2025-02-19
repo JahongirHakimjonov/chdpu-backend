@@ -1,6 +1,7 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
+from apps.backend.forms.students import StudentForm
 from apps.backend.models.students import Student
 
 
@@ -9,3 +10,4 @@ class StudentAdmin(ModelAdmin):
     list_display = ("id", "title", "created_at", "updated_at")
     search_fields = ("title",)
     list_filter = ("created_at", "updated_at")
+    form = StudentForm
