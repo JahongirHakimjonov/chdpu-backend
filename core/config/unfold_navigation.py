@@ -46,6 +46,76 @@ PAGES = [
             },
         ],
     },
+    {
+        "seperator": True,
+        "title": _("Ma'lumotlar"),
+        "items": [
+            {
+                "title": _("Fakultet haqida umumiy ma’lumot"),
+                "icon": "info",
+                "link": reverse_lazy("admin:backend_info_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_info"
+                ),
+            },
+            {
+                "title": _("Fakultet rahbariyati"),
+                "icon": "school",
+                "link": reverse_lazy("admin:backend_leadership_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_leadership"
+                ),
+            },
+            {
+                "title": _("Fakultet kafedralari va ularning faoliyati"),
+                "icon": "fact_check",
+                "link": reverse_lazy("admin:backend_chair_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_chair"
+                ),
+            },
+            {
+                "title": _("Fakultetning ilmiy-tadqiqot va innovatsion loyihalari"),
+                "icon": "rebase_edit",
+                "link": reverse_lazy("admin:backend_laboratory_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_laboratory"
+                ),
+            },
+            {
+                "title": _("Talabalar hayoti va tashkilotlari"),
+                "icon": "settings_accessibility",
+                "link": reverse_lazy("admin:backend_student_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_student"
+                ),
+            },
+            {
+                "title": _("Xalqaro hamkorlik va akademik almashinuv dasturlari"),
+                "icon": "handshake",
+                "link": reverse_lazy("admin:backend_cooperation_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_cooperation"
+                ),
+            },
+            {
+                "title": _("Multimedia va ijtimoiy tarmoqlar"),
+                "icon": "add_a_photo",
+                "link": reverse_lazy("admin:backend_interview_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_interview"
+                ),
+            },
+            {
+                "title": _("Fakultet yangiliklari va e’lonlar"),
+                "icon": "campaign",
+                "link": reverse_lazy("admin:backend_news_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_news"
+                ),
+            },
+        ],
+    },
 ]
 
 TABS = [

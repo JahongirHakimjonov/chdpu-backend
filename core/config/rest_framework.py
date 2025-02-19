@@ -3,20 +3,9 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
     ],
-    # "DEFAULT_THROTTLE_CLASSES": (
-    #     "rest_framework.throttling.ScopedRateThrottle",
-    #     "rest_framework.throttling.AnonRateThrottle",
-    #     "rest_framework.throttling.UserRateThrottle",
-    # ),
-    # "DEFAULT_THROTTLE_RATES": {
-    #     "anon": "60/min",
-    #     "user": "1000/day",
-    #     "story": "1000/day",
-    # },
     "EXCEPTION_HANDLER": "apps.shared.exceptions.custom_exception_handler",
 }
 
@@ -26,4 +15,5 @@ SPECTACULAR_SETTINGS = {
     "REDOC_DIST": "SIDECAR",
     "TITLE": "CHDPU Django Rest API",
     "DESCRIPTION": "CHDPU Django Rest API",
+    "SCHEMA_PATH_PREFIX": "/api/v1",
 }
