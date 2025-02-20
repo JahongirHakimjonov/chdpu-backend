@@ -6,4 +6,10 @@ from apps.backend.models.cooperation import Cooperation
 class CooperationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cooperation
-        fields = "__all__"
+        fields = (
+            "id",
+            "title",
+            "description",
+            "image",
+            "created_at",
+        )

@@ -6,4 +6,10 @@ from apps.backend.models.info import Info
 class InfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Info
-        fields = "__all__"
+        fields = (
+            "id",
+            "title",
+            "description",
+            "image",
+            "created_at",
+        )

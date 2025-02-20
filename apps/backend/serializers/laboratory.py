@@ -6,4 +6,10 @@ from apps.backend.models.laboratory import Laboratory
 class LaboratorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Laboratory
-        fields = "__all__"
+        fields = (
+            "id",
+            "title",
+            "description",
+            "image",
+            "created_at",
+        )

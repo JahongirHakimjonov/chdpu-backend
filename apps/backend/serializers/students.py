@@ -6,4 +6,10 @@ from apps.backend.models.students import Student
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = "__all__"
+        fields = (
+            "id",
+            "title",
+            "description",
+            "image",
+            "created_at",
+        )

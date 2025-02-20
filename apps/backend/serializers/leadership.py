@@ -6,4 +6,11 @@ from apps.backend.models.leadership import Leadership
 class LeadershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Leadership
-        fields = "__all__"
+        fields = (
+            "id",
+            "name",
+            "title",
+            "description",
+            "image",
+            "created_at",
+        )

@@ -6,4 +6,10 @@ from apps.backend.models.interview import Interview
 class InterviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interview
-        fields = "__all__"
+        fields = (
+            "id",
+            "title",
+            "description",
+            "image",
+            "created_at",
+        )
