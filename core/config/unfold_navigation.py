@@ -44,6 +44,14 @@ PAGES = [
                     request.user, "view_user"
                 ),
             },
+            {
+                "title": _("Site sozlamalari"),
+                "icon": "person_add",
+                "link": reverse_lazy("admin:sites_site_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_site"
+                ),
+            },
         ],
     },
     {
@@ -121,17 +129,17 @@ PAGES = [
 TABS = [
     {
         "models": [
-            "auth.user",
-            "auth.group",
+            "backend.news",
+            "backend.newscategory",
         ],
         "items": [
             {
-                "title": _("Foydalanuvchilar"),
-                "link": reverse_lazy("admin:auth_user_changelist"),
+                "title": _("Fakultet yangiliklari va e’lonlar"),
+                "link": reverse_lazy("admin:backend_news_changelist"),
             },
             {
-                "title": _("Guruhlar"),
-                "link": reverse_lazy("admin:auth_group_changelist"),
+                "title": _("Kategoriyalar"),
+                "link": reverse_lazy("admin:backend_newscategory_changelist"),
             },
         ],
     },
