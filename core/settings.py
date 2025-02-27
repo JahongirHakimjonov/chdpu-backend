@@ -125,3 +125,5 @@ CORS_ALLOW_ALL_ORIGINS = True
 LOCALE_MIDDLEWARE_EXCLUDED_PATHS = ["/media/", "/static/"]
 
 SITE_ID = 1
+
+AUTH_USER_MODEL = "users.User"

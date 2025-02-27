@@ -30,6 +30,9 @@ class UpdateDescriptionMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        if not request.path.startswith("/api"):
+            return self.get_response(request)
+
         response = self.get_response(request)
         content_type = response.get("Content-Type", "")
 
@@ -49,9 +52,9 @@ class UpdateDescriptionMiddleware:
                         ]
                         for key in keys:
                             if (
-                                key in item
-                                and isinstance(item[key], str)
-                                and item[key].strip()
+                                    key in item
+                                    and isinstance(item[key], str)
+                                    and item[key].strip()
                             ):
                                 item[key] = update_description_html(item[key], base_url)
                     for value in item.values():
