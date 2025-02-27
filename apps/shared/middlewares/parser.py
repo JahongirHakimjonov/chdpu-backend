@@ -1,4 +1,5 @@
 import json
+import re
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
@@ -44,26 +45,34 @@ class UpdateDescriptionMiddleware:
 
             base_url = request.build_absolute_uri("/")
 
-            def recursive_update(item):
-                if isinstance(item, dict):
-                    for field in ["description", "data"]:
-                        keys = [field] + [
-                            f"{field}_{lang}" for lang in MODELTRANSLATION_LANGUAGES
-                        ]
-                        for key in keys:
-                            if (
-                                    key in item
-                                    and isinstance(item[key], str)
-                                    and item[key].strip()
-                            ):
-                                item[key] = update_description_html(item[key], base_url)
-                    for value in item.values():
-                        recursive_update(value)
-                elif isinstance(item, list):
-                    for elem in item:
-                        recursive_update(elem)
+            if (
+                    "localhost" in base_url
+                    or re.match(r"http://\d+\.\d+\.\d+\.\d+(:\d+)?/", base_url)
+            ):
+                base_url = base_url.replace("https://", "http://")
+            else:
+                base_url = base_url.replace("http://", "https://")
 
-            recursive_update(data)
-            response.content = json.dumps(data)
+        def recursive_update(item):
+            if isinstance(item, dict):
+                for field in ["description", "data"]:
+                    keys = [field] + [
+                        f"{field}_{lang}" for lang in MODELTRANSLATION_LANGUAGES
+                    ]
+                    for key in keys:
+                        if (
+                                key in item
+                                and isinstance(item[key], str)
+                                and item[key].strip()
+                        ):
+                            item[key] = update_description_html(item[key], base_url)
+                for value in item.values():
+                    recursive_update(value)
+            elif isinstance(item, list):
+                for elem in item:
+                    recursive_update(elem)
+
+        recursive_update(data)
+        response.content = json.dumps(data)
 
         return response
