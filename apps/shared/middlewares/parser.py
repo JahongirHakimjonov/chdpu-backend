@@ -6,13 +6,19 @@ from bs4 import BeautifulSoup
 
 from core.settings import MODELTRANSLATION_LANGUAGES
 
+try:
+    import lxml
 
-def update_description_html(content, base_url):
-    """
-    HTML ichidagi nisbiy URL-larni absolute URL-larga aylantiradi.
-    <img> teglaridagi src va <a> teglaridagi href atributlari yangilanadi.
-    """
-    soup = BeautifulSoup(content, "html.parser")
+    PARSER = "lxml"
+except (ImportError, Exception) as e:
+    print(e)
+    PARSER = "html.parser"
+
+
+def update_response_html(content, base_url):
+    if "<a" not in content and "<img" not in content:
+        return content
+    soup = BeautifulSoup(content, PARSER)
     for tag in soup.find_all(["img", "a"]):
         if tag.name == "img" and tag.get("src"):
             tag["src"] = urljoin(base_url, tag["src"])
@@ -22,13 +28,9 @@ def update_description_html(content, base_url):
 
 
 class UpdateDescriptionMiddleware:
-    """
-    JSON javob ichidagi "description" va "data" maydonlari (hamda ularning til versiyalari)
-    topilib, HTML kod ichidagi nisbiy URL-larni absolute URL-larga aylantiradi.
-    """
-
     def __init__(self, get_response):
         self.get_response = get_response
+        self.ip_regex = re.compile(r"http://\d+\.\d+\.\d+\.\d+(:\d+)?/")
 
     def __call__(self, request):
         if not request.path.startswith("/api"):
@@ -45,34 +47,24 @@ class UpdateDescriptionMiddleware:
 
             base_url = request.build_absolute_uri("/")
 
-            if (
-                    "localhost" in base_url
-                    or re.match(r"http://\d+\.\d+\.\d+\.\d+(:\d+)?/", base_url)
-            ):
+            if "localhost" in base_url or self.ip_regex.match(base_url):
                 base_url = base_url.replace("https://", "http://")
             else:
                 base_url = base_url.replace("http://", "https://")
 
-        def recursive_update(item):
-            if isinstance(item, dict):
-                for field in ["description", "data"]:
-                    keys = [field] + [
-                        f"{field}_{lang}" for lang in MODELTRANSLATION_LANGUAGES
-                    ]
-                    for key in keys:
-                        if (
-                                key in item
-                                and isinstance(item[key], str)
-                                and item[key].strip()
-                        ):
-                            item[key] = update_description_html(item[key], base_url)
-                for value in item.values():
-                    recursive_update(value)
-            elif isinstance(item, list):
-                for elem in item:
-                    recursive_update(elem)
+            def recursive_update(item):
+                if isinstance(item, dict):
+                    for field in ["description", "content"]:
+                        keys = [field] + [f"{field}_{lang}" for lang in MODELTRANSLATION_LANGUAGES]
+                        for key in keys:
+                            if key in item and isinstance(item[key], str) and item[key].strip():
+                                item[key] = update_response_html(item[key], base_url)
+                    for value in item.values():
+                        recursive_update(value)
+                elif isinstance(item, list):
+                    for elem in item:
+                        recursive_update(elem)
 
-        recursive_update(data)
-        response.content = json.dumps(data)
-
+            recursive_update(data)
+            response.content = json.dumps(data)
         return response
