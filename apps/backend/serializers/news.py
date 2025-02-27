@@ -10,6 +10,7 @@ class NewsSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "image",
+            "category",
             "created_at",
         )
 

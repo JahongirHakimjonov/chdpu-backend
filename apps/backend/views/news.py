@@ -16,7 +16,10 @@ class NewsList(APIView):
     serializer_class = NewsSerializer
 
     def get(self, request):
+        category = request.query_params.get("category")
         queryset = News.objects.all()
+        if category:
+            queryset = queryset.filter(category=category)
         paginator = CustomPagination()
         result_page = paginator.paginate_queryset(queryset, request)
         serializer = self.serializer_class(result_page, many=True)
