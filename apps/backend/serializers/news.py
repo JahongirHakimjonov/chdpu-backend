@@ -36,6 +36,9 @@ class NewsDetailSerializer(serializers.ModelSerializer):
             "title",
             "image",
             "description",
+            "description_uz",
+            "description_ru",
+            "description_en",
             "category",
             "created_at",
         )
