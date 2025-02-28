@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +26,9 @@ class LaboratoryList(APIView):
 class LaboratoryDetail(APIView):
     serializer_class = LaboratoryDetailSerializer
 
+    @extend_schema(
+        operation_id="laboratory",
+    )
     def get(self, request, pk):
         laboratory = get_object_or_404(Laboratory, pk)
         serializer = self.serializer_class(laboratory)

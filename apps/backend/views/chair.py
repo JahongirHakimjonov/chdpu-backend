@@ -29,6 +29,9 @@ class ChairList(APIView):
 class ChairDetail(APIView):
     serializer_class = ChairDetailSerializer
 
+    @extend_schema(
+        operation_id="chairs-retrieve",
+    )
     def get(self, request, pk):
         chair = get_object_or_404(Chair, pk)
         serializer = self.serializer_class(chair)
@@ -69,6 +72,9 @@ class ChairMemberList(APIView):
 class ChairMemberDetail(APIView):
     serializer_class = ChairMemberDetailSerializer
 
+    @extend_schema(
+        operation_id="chairs-member-retrieve",
+    )
     def get(self, request, pk):
         chair_member = get_object_or_404(ChairMember, pk)
         serializer = self.serializer_class(chair_member)

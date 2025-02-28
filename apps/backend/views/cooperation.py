@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +26,9 @@ class CooperationList(APIView):
 class CooperationDetail(APIView):
     serializer_class = CooperationDetailSerializer
 
+    @extend_schema(
+        operation_id="cooperation",
+    )
     def get(self, request, pk):
         cooperation = get_object_or_404(Cooperation, pk)
         serializer = self.serializer_class(cooperation)

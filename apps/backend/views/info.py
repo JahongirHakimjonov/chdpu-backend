@@ -17,5 +17,6 @@ class InfoList(APIView):
                 "success": True,
                 "message": "Ma'lumotlar",
                 "data": serializer.data,
-            }
-            , status=status.HTTP_200_OK)
+            },
+            status=status.HTTP_200_OK,
+        )

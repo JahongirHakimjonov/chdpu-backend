@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +26,9 @@ class InterviewList(APIView):
 class InterviewDetail(APIView):
     serializer_class = InterviewDetailSerializer
 
+    @extend_schema(
+        operation_id="interview",
+    )
     def get(self, request, pk):
         interview = get_object_or_404(Interview, pk)
         serializer = self.serializer_class(interview)

@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -29,6 +30,9 @@ class NewsList(APIView):
 class NewsDetail(APIView):
     serializer_class = NewsDetailSerializer
 
+    @extend_schema(
+        operation_id="news",
+    )
     def get(self, request, pk):
         news = get_object_or_404(News, pk)
         serializer = self.serializer_class(news)

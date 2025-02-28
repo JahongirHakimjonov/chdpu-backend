@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +26,9 @@ class LeadershipList(APIView):
 class LeadershipDetail(APIView):
     serializer_class = LeadershipDetailSerializer
 
+    @extend_schema(
+        operation_id="leadership",
+    )
     def get(self, request, pk):
         leadership = get_object_or_404(Leadership, pk)
         serializer = self.serializer_class(leadership)

@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -21,6 +22,9 @@ class TestimonialListAPIView(APIView):
 class TestimonialDetailAPIView(APIView):
     serializer_class = TestimonialSerializer
 
+    @extend_schema(
+        operation_id="testimonial",
+    )
     def get(self, request, pk):
         testimonial = get_object_or_404(Testimonial, pk=pk)
         serializer = self.serializer_class(testimonial)
