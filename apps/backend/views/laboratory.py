@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.backend.models.laboratory import Laboratory
-from apps.backend.serializers.laboratory import LaboratorySerializer
+from apps.backend.serializers.laboratory import (
+    LaboratorySerializer,
+    LaboratoryDetailSerializer,
+)
 from apps.shared.exceptions.http404 import get_object_or_404
 from apps.shared.pagination.custom import CustomPagination
 
@@ -20,7 +23,7 @@ class LaboratoryList(APIView):
 
 
 class LaboratoryDetail(APIView):
-    serializer_class = LaboratorySerializer
+    serializer_class = LaboratoryDetailSerializer
 
     def get(self, request, pk):
         laboratory = get_object_or_404(Laboratory, pk)

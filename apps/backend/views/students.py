@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.backend.models.students import Student
-from apps.backend.serializers.students import StudentSerializer
+from apps.backend.serializers.students import StudentSerializer, StudentDetailSerializer
 from apps.shared.exceptions.http404 import get_object_or_404
 from apps.shared.pagination.custom import CustomPagination
 
@@ -20,7 +20,7 @@ class StudentList(APIView):
 
 
 class StudentDetail(APIView):
-    serializer_class = StudentSerializer
+    serializer_class = StudentDetailSerializer
 
     def get(self, request, pk):
         student = get_object_or_404(Student, pk)

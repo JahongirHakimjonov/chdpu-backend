@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.backend.models.leadership import Leadership
-from apps.backend.serializers.leadership import LeadershipSerializer
+from apps.backend.serializers.leadership import (
+    LeadershipSerializer,
+    LeadershipDetailSerializer,
+)
 from apps.shared.exceptions.http404 import get_object_or_404
 from apps.shared.pagination.custom import CustomPagination
 
@@ -20,7 +23,7 @@ class LeadershipList(APIView):
 
 
 class LeadershipDetail(APIView):
-    serializer_class = LeadershipSerializer
+    serializer_class = LeadershipDetailSerializer
 
     def get(self, request, pk):
         leadership = get_object_or_404(Leadership, pk)

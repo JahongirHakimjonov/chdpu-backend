@@ -1,6 +1,11 @@
 from django.urls import path
 
-from apps.backend.views.chair import ChairList, ChairDetail
+from apps.backend.views.chair import (
+    ChairList,
+    ChairDetail,
+    ChairMemberList,
+    ChairMemberDetail,
+)
 from apps.backend.views.cooperation import CooperationList, CooperationDetail
 from apps.backend.views.info import InfoList, InfoDetail
 from apps.backend.views.interview import InterviewList, InterviewDetail
@@ -8,10 +13,20 @@ from apps.backend.views.laboratory import LaboratoryList, LaboratoryDetail
 from apps.backend.views.leadership import LeadershipList, LeadershipDetail
 from apps.backend.views.news import NewsList, NewsDetail, NewsCategoryList
 from apps.backend.views.students import StudentList, StudentDetail
+from apps.backend.views.testimonial import (
+    TestimonialListAPIView,
+    TestimonialDetailAPIView,
+)
 
 urlpatterns = [
     path("chairs/", ChairList.as_view(), name="chairs"),
     path("chairs/<int:pk>/", ChairDetail.as_view(), name="chair_detail"),
+    path("chairs/members/", ChairMemberList.as_view(), name="chairs-members"),
+    path(
+        "chairs/members/<int:pk>/",
+        ChairMemberDetail.as_view(),
+        name="chair-member_detail",
+    ),
     path("cooperations/", CooperationList.as_view(), name="cooperation"),
     path(
         "cooperations/<int:pk>/", CooperationDetail.as_view(), name="cooperation_detail"
@@ -31,4 +46,10 @@ urlpatterns = [
     path("news/category/", NewsCategoryList.as_view(), name="news-categories"),
     path("students/", StudentList.as_view(), name="students"),
     path("students/<int:pk>/", StudentDetail.as_view(), name="student_detail"),
+    path("testimonials/", TestimonialListAPIView.as_view(), name="testimonials"),
+    path(
+        "testimonials/<int:pk>/",
+        TestimonialDetailAPIView.as_view(),
+        name="testimonials-detail",
+    ),
 ]

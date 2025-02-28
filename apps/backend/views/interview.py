@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.backend.models.interview import Interview
-from apps.backend.serializers.interview import InterviewSerializer
+from apps.backend.serializers.interview import (
+    InterviewSerializer,
+    InterviewDetailSerializer,
+)
 from apps.shared.exceptions.http404 import get_object_or_404
 from apps.shared.pagination.custom import CustomPagination
 
@@ -20,7 +23,7 @@ class InterviewList(APIView):
 
 
 class InterviewDetail(APIView):
-    serializer_class = InterviewSerializer
+    serializer_class = InterviewDetailSerializer
 
     def get(self, request, pk):
         interview = get_object_or_404(Interview, pk)

@@ -16,3 +16,21 @@ class Laboratory(AbstractBaseModel):
 
     def __str__(self):
         return self.title
+
+
+class LaboratoryGallery(AbstractBaseModel):
+    laboratory = models.ForeignKey(
+        "Laboratory",
+        on_delete=models.CASCADE,
+        related_name="laboratory_galleries",
+        verbose_name=_("Laboratory"),
+    )
+    image = models.ImageField(upload_to="laboratory/gallery/", verbose_name=_("Image"))
+
+    class Meta:
+        verbose_name = _("Laboratory Gallery")
+        verbose_name_plural = _("Laboratory Galleries")
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return self.laboratory.title

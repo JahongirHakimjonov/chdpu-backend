@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.backend.models.info import Info
-from apps.backend.serializers.info import InfoSerializer
+from apps.backend.serializers.info import InfoSerializer, InfoDetailSerializer
 from apps.shared.exceptions.http404 import get_object_or_404
 from apps.shared.pagination.custom import CustomPagination
 
@@ -20,7 +20,7 @@ class InfoList(APIView):
 
 
 class InfoDetail(APIView):
-    serializer_class = InfoSerializer
+    serializer_class = InfoDetailSerializer
 
     def get(self, request, pk):
         info = get_object_or_404(Info, pk)

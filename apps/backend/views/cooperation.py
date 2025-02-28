@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.backend.models.cooperation import Cooperation
-from apps.backend.serializers.cooperation import CooperationSerializer
+from apps.backend.serializers.cooperation import (
+    CooperationSerializer,
+    CooperationDetailSerializer,
+)
 from apps.shared.exceptions.http404 import get_object_or_404
 from apps.shared.pagination.custom import CustomPagination
 
@@ -20,7 +23,7 @@ class CooperationList(APIView):
 
 
 class CooperationDetail(APIView):
-    serializer_class = CooperationSerializer
+    serializer_class = CooperationDetailSerializer
 
     def get(self, request, pk):
         cooperation = get_object_or_404(Cooperation, pk)

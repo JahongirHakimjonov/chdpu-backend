@@ -5,4 +5,4 @@ from apps.backend.models.leadership import Leadership
 
 @register(Leadership)
 class LeadershipTranslationOptions(TranslationOptions):
-    fields = ("name", "title", "description")
+    fields = ("title", "description")
