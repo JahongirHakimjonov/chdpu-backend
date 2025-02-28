@@ -122,6 +122,14 @@ PAGES = [
                     request.user, "view_news"
                 ),
             },
+            {
+                "title": _("Talabalarimizdan fikrlar"),
+                "icon": "chat_bubble",
+                "link": reverse_lazy("admin:backend_testimonial_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_testimonial"
+                ),
+            },
         ],
     },
 ]
@@ -140,6 +148,54 @@ TABS = [
             {
                 "title": _("Kategoriyalar"),
                 "link": reverse_lazy("admin:backend_newscategory_changelist"),
+            },
+        ],
+    },
+    {
+        "models": [
+            "backend.chair",
+            "backend.chairmember",
+        ],
+        "items": [
+            {
+                "title": _("Fakultet kafedralari va ularning faoliyati"),
+                "link": reverse_lazy("admin:backend_chair_changelist"),
+            },
+            {
+                "title": _("Hodimlar"),
+                "link": reverse_lazy("admin:backend_chairmember_changelist"),
+            },
+        ],
+    },
+    {
+        "models": [
+            "backend.laboratory",
+            "backend.laboratorygallery",
+        ],
+        "items": [
+            {
+                "title": _("Fakultetning ilmiy-tadqiqot va innovatsion loyihalari"),
+                "link": reverse_lazy("admin:backend_laboratory_changelist"),
+            },
+            {
+                "title": _("Galareya"),
+                "link": reverse_lazy("admin:backend_laboratorygallery_changelist"),
+            },
+        ],
+    },
+    {
+        "models": [
+            "backend.leadership",
+            "backend.worktimeline",
+        ],
+        "items": [
+            {
+                "title": _("Fakultet rahbariyati"),
+                "link": reverse_lazy("admin:backend_leadership_changelist"),
+            },
+            {
+                "title": _("Qabul kunlari"),
+                "link": reverse_lazy("admin:backend_worktimeline_changelist"),
             },
         ],
     },

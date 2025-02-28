@@ -7,7 +7,7 @@ from apps.backend.views.chair import (
     ChairMemberDetail,
 )
 from apps.backend.views.cooperation import CooperationList, CooperationDetail
-from apps.backend.views.info import InfoList, InfoDetail
+from apps.backend.views.info import InfoList
 from apps.backend.views.interview import InterviewList, InterviewDetail
 from apps.backend.views.laboratory import LaboratoryList, LaboratoryDetail
 from apps.backend.views.leadership import LeadershipList, LeadershipDetail
@@ -32,7 +32,6 @@ urlpatterns = [
         "cooperations/<int:pk>/", CooperationDetail.as_view(), name="cooperation_detail"
     ),
     path("info/", InfoList.as_view(), name="info"),
-    path("info/<int:pk>/", InfoDetail.as_view(), name="info_detail"),
     path("interviews/", InterviewList.as_view(), name="interviews"),
     path("interviews/<int:pk>/", InterviewDetail.as_view(), name="interview_detail"),
     path("laboratories/", LaboratoryList.as_view(), name="laboratories"),
