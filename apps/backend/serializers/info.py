@@ -8,7 +8,7 @@ class InfoContactSerializer(serializers.ModelSerializer):
         model = InfoContact
         fields = (
             "id",
-            "chair",
+            "info",
             "contact_type",
             "value",
             "created_at",
