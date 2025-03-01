@@ -5,16 +5,21 @@ from apps.shared.models.base import AbstractBaseModel
 
 
 class Leadership(AbstractBaseModel):
-    title = models.CharField(max_length=255, verbose_name=_("Title"))
-    sub_title = models.CharField(max_length=255, verbose_name=_("Sub Title"))
-    description = models.TextField(verbose_name=_("Description"))
-    contact = models.CharField(max_length=255, verbose_name=_("Contact"))
-    image = models.ImageField(upload_to="leadership/", verbose_name=_("Image"))
+    title = models.CharField(max_length=255, verbose_name=_("Title"), db_index=True)
+    sub_title = models.CharField(
+        max_length=255, verbose_name=_("Sub Title"), db_index=True
+    )
+    description = models.TextField(verbose_name=_("Description"), db_index=True)
+    contact = models.CharField(max_length=255, verbose_name=_("Contact"), db_index=True)
+    image = models.ImageField(
+        upload_to="leadership/", verbose_name=_("Image"), db_index=True
+    )
 
     class Meta:
         verbose_name = _("Leadership")
         verbose_name_plural = _("Leaderships")
         ordering = ("-created_at",)
+        db_table = "leadership"
 
     def __str__(self):
         return self.title
@@ -35,7 +40,19 @@ class WorkTimeline(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="work_timelines",
         verbose_name=_("Leadership"),
+        db_index=True,
     )
-    day = models.CharField(max_length=255, choices=WeekDay, verbose_name=_("Day"))
-    start_time = models.TimeField(verbose_name=_("Start Time"))
-    end_time = models.TimeField(verbose_name=_("End Time"))
+    day = models.CharField(
+        max_length=255, choices=WeekDay, verbose_name=_("Day"), db_index=True
+    )
+    start_time = models.TimeField(verbose_name=_("Start Time"), db_index=True)
+    end_time = models.TimeField(verbose_name=_("End Time"), db_index=True)
+
+    class Meta:
+        verbose_name = _("Work Timeline")
+        verbose_name_plural = _("Work Timelines")
+        ordering = ("-created_at",)
+        db_table = "work_timeline"
+
+    def __str__(self):
+        return self.leadership.title

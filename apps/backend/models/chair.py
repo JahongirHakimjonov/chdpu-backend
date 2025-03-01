@@ -5,15 +5,18 @@ from apps.shared.models.base import AbstractBaseModel
 
 
 class Chair(AbstractBaseModel):
-    name = models.CharField(max_length=255, verbose_name=_("Name"))
-    title = models.CharField(max_length=255, verbose_name=_("Title"))
-    description = models.TextField(verbose_name=_("Description"))
-    image = models.ImageField(upload_to="chair/", verbose_name=_("Image"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"), db_index=True)
+    title = models.CharField(max_length=255, verbose_name=_("Title"), db_index=True)
+    description = models.TextField(verbose_name=_("Description"), db_index=True)
+    image = models.ImageField(
+        upload_to="chair/", verbose_name=_("Image"), db_index=True
+    )
 
     class Meta:
         verbose_name = _("Chair")
         verbose_name_plural = _("Chairs")
         ordering = ("-created_at",)
+        db_table = "chair"
 
     def __str__(self):
         return self.name
@@ -25,16 +28,20 @@ class ChairMember(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="members",
         verbose_name=_("Chair"),
+        db_index=True,
     )
-    name = models.CharField(max_length=255, verbose_name=_("Name"))
-    title = models.CharField(max_length=255, verbose_name=_("Title"))
-    description = models.TextField(verbose_name=_("Description"))
-    image = models.ImageField(upload_to="chair/member/", verbose_name=_("Image"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"), db_index=True)
+    title = models.CharField(max_length=255, verbose_name=_("Title"), db_index=True)
+    description = models.TextField(verbose_name=_("Description"), db_index=True)
+    image = models.ImageField(
+        upload_to="chair/member/", verbose_name=_("Image"), db_index=True
+    )
 
     class Meta:
         verbose_name = _("Chair Member")
         verbose_name_plural = _("Chair Members")
         ordering = ("-created_at",)
+        db_table = "chair_member"
 
     def __str__(self):
         return self.name
@@ -58,16 +65,21 @@ class ChairContact(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="contacts",
         verbose_name=_("Chair"),
+        db_index=True,
     )
-    value = models.CharField(max_length=255, verbose_name=_("Value"))
+    value = models.CharField(max_length=255, verbose_name=_("Value"), db_index=True)
     contact_type = models.CharField(
-        max_length=255, choices=ContactType, verbose_name=_("Contact Type")
+        max_length=255,
+        choices=ContactType,
+        verbose_name=_("Contact Type"),
+        db_index=True,
     )
 
     class Meta:
         verbose_name = _("Chair Contact")
         verbose_name_plural = _("Chair Contacts")
         ordering = ("-created_at",)
+        db_table = "chair_contact"
 
     def __str__(self):
-        return self.name
+        return self.value

@@ -16,6 +16,7 @@ class BuildingGalleryAdmin(ModelAdmin):
     list_display = ("id", "building", "created_at")
     search_fields = ("building__title",)
     list_filter = ("created_at",)
+    autocomplete_fields = ("building",)
 
 
 @admin.register(Building)

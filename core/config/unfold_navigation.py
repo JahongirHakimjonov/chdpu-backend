@@ -236,4 +236,20 @@ TABS = [
             },
         ],
     },
+    {
+        "models": [
+            "backend.building",
+            "backend.buildinggallery",
+        ],
+        "items": [
+            {
+                "title": _("O'quv binolari"),
+                "link": reverse_lazy("admin:backend_building_changelist"),
+            },
+            {
+                "title": _("Galareya"),
+                "link": reverse_lazy("admin:backend_buildinggallery_changelist"),
+            },
+        ],
+    },
 ]
