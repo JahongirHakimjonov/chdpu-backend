@@ -38,6 +38,12 @@ CKEDITOR_5_CONFIGS = {
             "codeBlock",
             "sourceEditing",
             "fileUpload",
+            "table",
+            "|",
+            "insertTable",
+            "tableColumn",
+            "tableRow",
+            "mergeTableCells",
             "|",
             "alignment",
             "fontSize",
@@ -47,6 +53,7 @@ CKEDITOR_5_CONFIGS = {
             "undo",
             "redo",
         ],
+        "table": {"contentToolbar": ["tableColumn", "tableRow", "mergeTableCells"]},
         "extraAllowedContent": "iframe[*]",  # Allow all iframe attributes
         "allowedContent": True,  # Allow all content types
         "alignment": {

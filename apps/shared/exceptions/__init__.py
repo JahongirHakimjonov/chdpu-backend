@@ -1,9 +1,3 @@
-import importlib
-import os
+from apps.shared.exceptions.http404 import get_object_or_404
 
-current_dir = os.path.dirname(__file__)
-
-for filename in os.listdir(current_dir):
-    if filename.endswith(".py") and filename != "__init__.py":
-        module_name = f"{__name__}.{filename[:-3]}"
-        importlib.import_module(module_name)
+__all__ = ["get_object_or_404"]

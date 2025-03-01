@@ -130,6 +130,38 @@ PAGES = [
                     request.user, "view_testimonial"
                 ),
             },
+            {
+                "title": _("Me'yoriy hujjatlar"),
+                "icon": "description",
+                "link": reverse_lazy("admin:backend_document_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_document"
+                ),
+            },
+            {
+                "title": _("O'quv binolari"),
+                "icon": "apartment",
+                "link": reverse_lazy("admin:backend_building_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_building"
+                ),
+            },
+            {
+                "title": _("Fakultetning ta’lim sifati va baholash tizimi"),
+                "icon": "hotel_class",
+                "link": reverse_lazy("admin:backend_rating_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_rating"
+                ),
+            },
+            {
+                "title": _("Qabul"),
+                "icon": "calendar_month",
+                "link": reverse_lazy("admin:backend_admission_changelist"),
+                "permission": lambda request: user_has_group_or_permission(
+                    request.user, "view_admission"
+                ),
+            },
         ],
     },
 ]

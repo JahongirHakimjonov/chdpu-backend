@@ -18,3 +18,6 @@ def get_object_or_404(object_class, pk, *args, **kwargs):
         return object_class.objects.get(pk=pk, *args, **kwargs)
     except (object_class.DoesNotExist, ValueError, TypeError, ValidationError):
         raise Http404Exception(object_class.__name__, pk)
+
+
+__all__ = ["get_object_or_404", "Http404Exception"]

@@ -1,17 +1,24 @@
 from django.contrib import admin
 from django.db import models
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
-from unfold.admin import ModelAdmin, StackedInline
+from unfold.admin import ModelAdmin, StackedInline, TabularInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 
-from apps.backend.models.chair import Chair, ChairMember
+from apps.backend.models.chair import Chair, ChairMember, ChairContact
+
+
+class ChairContactInline(TabularInline):
+    model = ChairContact
+    extra = 0
+    tab = True
+    fields = ("contact_type", "value")
 
 
 class ChairMemberInline(StackedInline, TranslationStackedInline):
     model = ChairMember
     extra = 0
+    tab = True
     fields = ("name", "title", "description", "image")
-    # form = ChairMemberForm
     formfield_overrides = {
         models.TextField: {
             "widget": WysiwygWidget,
@@ -24,8 +31,7 @@ class ChairAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("id", "name", "created_at", "updated_at")
     search_fields = ("name",)
     list_filter = ("created_at", "updated_at")
-    # form = ChairForm
-    inlines = (ChairMemberInline,)
+    inlines = (ChairMemberInline, ChairContactInline)
     formfield_overrides = {
         models.TextField: {
             "widget": WysiwygWidget,

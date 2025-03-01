@@ -1,6 +1,18 @@
 from rest_framework import serializers
 
-from apps.backend.models.chair import Chair, ChairMember
+from apps.backend.models.chair import Chair, ChairMember, ChairContact
+
+
+class ChairContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChairContact
+        fields = (
+            "id",
+            "chair",
+            "contact_type",
+            "value",
+            "created_at",
+        )
 
 
 class ChairMemberSerializer(serializers.ModelSerializer):
@@ -59,3 +71,13 @@ class ChairDetailSerializer(serializers.ModelSerializer):
             "image",
             "created_at",
         )
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["members"] = ChairMemberDetailSerializer(
+            instance.members.all(), many=True
+        ).data
+        data["contacts"] = ChairContactSerializer(
+            instance.contacts.all(), many=True
+        ).data
+        return data
