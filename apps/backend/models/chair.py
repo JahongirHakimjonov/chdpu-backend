@@ -36,11 +36,14 @@ class ChairMember(AbstractBaseModel):
     image = models.ImageField(
         upload_to="chair/member/", verbose_name=_("Image"), db_index=True
     )
+    position = models.BigIntegerField(
+        verbose_name=_("Position"), db_index=True, default=0
+    )
 
     class Meta:
         verbose_name = _("Chair Member")
         verbose_name_plural = _("Chair Members")
-        ordering = ("-created_at",)
+        ordering = ["position"]
         db_table = "chair_member"
 
     def __str__(self):

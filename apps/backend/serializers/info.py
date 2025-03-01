@@ -1,6 +1,18 @@
 from rest_framework import serializers
 
-from apps.backend.models.info import Info
+from apps.backend.models.info import Info, InfoContact
+
+
+class InfoContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InfoContact
+        fields = (
+            "id",
+            "chair",
+            "contact_type",
+            "value",
+            "created_at",
+        )
 
 
 class InfoSerializer(serializers.ModelSerializer):
@@ -16,3 +28,10 @@ class InfoSerializer(serializers.ModelSerializer):
             "image",
             "created_at",
         )
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["contacts"] = InfoContactSerializer(
+            instance.contacts.all(), many=True
+        ).data
+        return data
