@@ -187,6 +187,7 @@ TABS = [
         "models": [
             "backend.chair",
             "backend.chairmember",
+            "backend.chaircontact",
         ],
         "items": [
             {
@@ -196,6 +197,10 @@ TABS = [
             {
                 "title": _("Hodimlar"),
                 "link": reverse_lazy("admin:backend_chairmember_changelist"),
+            },
+            {
+                "title": _("Kontaktlar"),
+                "link": reverse_lazy("admin:backend_chaircontact_changelist"),
             },
         ],
     },

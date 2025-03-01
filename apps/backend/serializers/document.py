@@ -10,17 +10,6 @@ class DocumentSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "image",
-            "created_at",
-        )
-
-
-class DocumentDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Document
-        fields = (
-            "id",
-            "title",
-            "image",
             "description",
             "description_uz",
             "description_ru",

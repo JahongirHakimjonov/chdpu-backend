@@ -1,7 +1,7 @@
 from django.urls import path
 
-from apps.backend.views.admission import AdmissionList, AdmissionDetail
-from apps.backend.views.buildings import BuildingList, BuildingDetail
+from apps.backend.views.admission import AdmissionList
+from apps.backend.views.buildings import BuildingList
 from apps.backend.views.chair import (
     ChairList,
     ChairDetail,
@@ -9,13 +9,13 @@ from apps.backend.views.chair import (
     ChairMemberDetail,
 )
 from apps.backend.views.cooperation import CooperationList, CooperationDetail
-from apps.backend.views.document import DocumentList, DocumentDetail
+from apps.backend.views.document import DocumentList
 from apps.backend.views.info import InfoList
 from apps.backend.views.interview import InterviewList, InterviewDetail
 from apps.backend.views.laboratory import LaboratoryList, LaboratoryDetail
 from apps.backend.views.leadership import LeadershipList, LeadershipDetail
 from apps.backend.views.news import NewsList, NewsDetail, NewsCategoryList
-from apps.backend.views.rating import RatingList, RatingDetail
+from apps.backend.views.rating import RatingList
 from apps.backend.views.students import StudentList, StudentDetail
 from apps.backend.views.testimonial import (
     TestimonialListAPIView,
@@ -56,11 +56,7 @@ urlpatterns = [
         name="testimonials-detail",
     ),
     path("building/", BuildingList.as_view(), name="building"),
-    path("building/<int:pk>/", BuildingDetail.as_view(), name="building-detail"),
     path("document/", DocumentList.as_view(), name="document"),
-    path("document/<int:pk>/", DocumentDetail.as_view(), name="document-detail"),
     path("rating/", RatingList.as_view(), name="rating"),
-    path("rating/<int:pk>/", RatingDetail.as_view(), name="rating-detail"),
     path("admission/", AdmissionList.as_view(), name="admission"),
-    path("admission/<int:pk>/", AdmissionDetail.as_view(), name="admission-detail"),
 ]

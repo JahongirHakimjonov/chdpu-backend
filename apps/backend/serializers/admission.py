@@ -10,17 +10,6 @@ class AdmissionSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "image",
-            "created_at",
-        )
-
-
-class AdmissionDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Admission
-        fields = (
-            "id",
-            "title",
-            "image",
             "description",
             "description_uz",
             "description_ru",

@@ -10,17 +10,6 @@ class RatingSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "image",
-            "created_at",
-        )
-
-
-class RatingDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Rating
-        fields = (
-            "id",
-            "title",
-            "image",
             "description",
             "description_uz",
             "description_ru",

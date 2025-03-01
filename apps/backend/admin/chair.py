@@ -50,3 +50,11 @@ class ChairMemberAdmin(ModelAdmin, TabbedTranslationAdmin):
         }
     }
     autocomplete_fields = ("chair",)
+
+
+@admin.register(ChairContact)
+class ChairContactAdmin(ModelAdmin):
+    list_display = ("id", "chair", "contact_type", "value", "created_at")
+    search_fields = ("chair__title", "contact_type", "value")
+    list_filter = ("chair", "contact_type")
+    autocomplete_fields = ("chair",)

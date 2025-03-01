@@ -20,17 +20,6 @@ class BuildingSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "image",
-            "created_at",
-        )
-
-
-class BuildingDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Building
-        fields = (
-            "id",
-            "title",
-            "image",
             "description",
             "description_uz",
             "description_ru",
