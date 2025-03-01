@@ -19,7 +19,10 @@ class ChairFilter(DropdownFilter):
 
     def lookups(self, request: Any, model_admin: Any) -> list[tuple[Any, str]]:
         querysets = Chair.objects.all()
-        return [(queryset.id, f"{queryset.name} - {queryset.title}") for queryset in querysets]
+        return [
+            (queryset.id, f"{queryset.name} - {queryset.title}")
+            for queryset in querysets
+        ]
 
     def queryset(self, request: Any, queryset: QuerySet[Any]) -> QuerySet[Any] | None:
         if self.value():
