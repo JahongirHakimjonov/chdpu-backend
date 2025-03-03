@@ -4,6 +4,19 @@ from django.utils.translation import gettext_lazy as _
 from apps.shared.models.base import AbstractBaseModel
 
 
+class ContactType(models.TextChoices):
+    EMAIL = "EMAIL", _("Email")
+    PHONE = "PHONE", _("Phone")
+    TELEGRAM = "TELEGRAM", _("Telegram")
+    FACEBOOK = "FACEBOOK", _("Facebook")
+    INSTAGRAM = "INSTAGRAM", _("Instagram")
+    TWITTER = "TWITTER", _("Twitter")
+    LINKEDIN = "LINKEDIN", _("LinkedIn")
+    WEBSITE = "WEBSITE", _("Website")
+    YOUTUBE = "YOUTUBE", _("YouTube")
+    OTHER = "OTHER", _("Other")
+
+
 class Chair(AbstractBaseModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"), db_index=True)
     title = models.CharField(max_length=255, verbose_name=_("Title"), db_index=True)
@@ -32,6 +45,15 @@ class ChairMember(AbstractBaseModel):
     )
     name = models.CharField(max_length=255, verbose_name=_("Name"), db_index=True)
     title = models.CharField(max_length=255, verbose_name=_("Title"), db_index=True)
+    contact_type = models.CharField(
+        max_length=255,
+        choices=ContactType,
+        verbose_name=_("Contact Type"),
+        db_index=True,
+        null=True,
+        blank=True,
+    )
+    contact_data = models.CharField(max_length=255, verbose_name=_("Contact data"), db_index=True, null=True, blank=True)
     description = models.TextField(verbose_name=_("Description"), db_index=True)
     image = models.ImageField(
         upload_to="chair/member/", verbose_name=_("Image"), db_index=True
@@ -51,18 +73,6 @@ class ChairMember(AbstractBaseModel):
 
 
 class ChairContact(AbstractBaseModel):
-    class ContactType(models.TextChoices):
-        EMAIL = "EMAIL", _("Email")
-        PHONE = "PHONE", _("Phone")
-        TELEGRAM = "TELEGRAM", _("Telegram")
-        FACEBOOK = "FACEBOOK", _("Facebook")
-        INSTAGRAM = "INSTAGRAM", _("Instagram")
-        TWITTER = "TWITTER", _("Twitter")
-        LINKEDIN = "LINKEDIN", _("LinkedIn")
-        WEBSITE = "WEBSITE", _("Website")
-        YOUTUBE = "YOUTUBE", _("YouTube")
-        OTHER = "OTHER", _("Other")
-
     chair = models.ForeignKey(
         "Chair",
         on_delete=models.CASCADE,

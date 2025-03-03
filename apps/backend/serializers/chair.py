@@ -23,6 +23,8 @@ class ChairMemberSerializer(serializers.ModelSerializer):
             "chair",
             "name",
             "title",
+            "contact_type",
+            "contact_data",
             "image",
             "created_at",
         )
@@ -36,6 +38,8 @@ class ChairMemberDetailSerializer(serializers.ModelSerializer):
             "chair",
             "name",
             "title",
+            "contact_type",
+            "contact_data",
             "description",
             "description_uz",
             "description_ru",
