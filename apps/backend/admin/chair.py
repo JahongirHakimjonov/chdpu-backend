@@ -41,7 +41,7 @@ class ChairMemberInline(StackedInline, TranslationStackedInline):
     model = ChairMember
     extra = 0
     tab = True
-    fields = ("name", "title", "description", "image", "position")
+    fields = ("name", "title", "description", "image", "contact_type", "contact_data")
     formfield_overrides = {
         models.TextField: {
             "widget": WysiwygWidget,
